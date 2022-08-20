@@ -30,22 +30,17 @@
 
 	//
 
-	function createAudio() {
-		mambo = new Howl({
-			src: [`${assets}/tracks/mambo.mp3`],
+	function createHowl(src: string | Array<string>) {
+		return new Howl({
+			src,
+			preload: true,
 			html5: true
-			// onplay: function () {
-			// 	requestAnimationFrame(step);
-			// }
 		});
+	}
 
-		papi = new Howl({
-			src: [`${assets}/tracks/papi.mp3`],
-			html5: true
-			// onplay: function () {
-			// 	requestAnimationFrame(step);
-			// }
-		});
+	function createAudio() {
+		mambo = createHowl([`${assets}/tracks/mambo.mp3`]);
+		papi = createHowl([`${assets}/tracks/papi.mp3`]);
 	}
 
 	//
