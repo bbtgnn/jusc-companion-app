@@ -32,14 +32,16 @@
 
 	function createAudio() {
 		mambo = new Howl({
-			src: [`${assets}/tracks/mambo.mp3`]
+			src: [`${assets}/tracks/mambo.mp3`],
+			html5: true
 			// onplay: function () {
 			// 	requestAnimationFrame(step);
 			// }
 		});
 
 		papi = new Howl({
-			src: [`${assets}/tracks/papi.mp3`]
+			src: [`${assets}/tracks/papi.mp3`],
+			html5: true
 			// onplay: function () {
 			// 	requestAnimationFrame(step);
 			// }
