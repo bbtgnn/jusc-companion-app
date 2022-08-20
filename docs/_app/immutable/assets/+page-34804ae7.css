@@ -1,0 +1,1 @@
+button.svelte-3p4hus{box-shadow:-8px 8px #000;transform:translate(8px,-8px);border:solid 2px #000;border-radius:8px;cursor:pointer;transition:all .1s}button.svelte-3p4hus:active,button.down.svelte-3p4hus{transform:translate(0);box-shadow:0 0 #000}button.svelte-3p4hus:disabled:not(.down){border:solid 2px gray;transform:translate(0);box-shadow:0 0 gray;color:gray}
