@@ -8,7 +8,6 @@
 	//
 
 	let mambo: Howl | null = null;
-	let papi: Howl | null = null;
 
 	function playMambo() {
 		if (mambo) {
@@ -16,15 +15,23 @@
 		}
 	}
 
+	let papi: Howl | null = null;
+	let isPapiPlaying = false;
+
 	function playPapi() {
 		if (papi) {
+			if (papi.playing()) {
+				stopPapi();
+			}
 			papi.play();
+			isPapiPlaying = true;
 		}
 	}
 
 	function stopPapi() {
 		if (papi) {
 			papi.stop();
+			isPapiPlaying = false;
 		}
 	}
 
@@ -73,12 +80,12 @@
 	</div>
 {:else}
 	<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
-		<Button grow lock on:click={playPapi}>Papi</Button>
+		<Button grow on:click={playPapi}>Papi</Button>
 
 		<Button grow disabled>{count}</Button>
 		<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
 			<Button grow disabled>Mamacita</Button>
-			<Button grow on:click={stopPapi}>Stop</Button>
+			<Button grow disabled={!isPapiPlaying} on:click={stopPapi}>Stop</Button>
 		</div>
 		<hr class="border-t-2 border-t-black" />
 		<Button grow lock on:click={playMambo}>Mambo Salentino</Button>
