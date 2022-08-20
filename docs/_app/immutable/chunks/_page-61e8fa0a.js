@@ -1,0 +1,1 @@
+import{r as e}from"./index-297b380d.js";import{b as o}from"./paths-6cd3a76e.js";function r(t){throw e(303,`${o}/sounds`)}const s=Object.freeze(Object.defineProperty({__proto__:null,load:r},Symbol.toStringTag,{value:"Module"}));export{s as _,r as l};

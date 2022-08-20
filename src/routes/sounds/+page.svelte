@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/ui/button.svelte';
 	import { Howl, Howler } from 'howler';
+	import { assets } from '$app/paths';
 
 	export let count = 0;
 
@@ -27,14 +28,14 @@
 	}
 
 	const mambo = new Howl({
-		src: ['tracks/mambo.mp3'],
+		src: [`${assets}/tracks/mambo.mp3`],
 		onplay: function () {
 			requestAnimationFrame(step);
 		}
 	});
 
 	const papi = new Howl({
-		src: ['tracks/papi.mp3']
+		src: [`${assets}/tracks/papi.mp3`]
 		// onplay: function () {
 		// 	requestAnimationFrame(step);
 		// }
@@ -50,14 +51,11 @@
 <div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
 	<Button grow lock on:click={playPapi}>Papi</Button>
 
-	<Button grow>{count}</Button>
+	<Button grow disabled>{count}</Button>
 	<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
 		<Button grow disabled>Mamacita</Button>
-		<Button grow lock>Stop</Button>
+		<Button grow lock disabled>Stop</Button>
 	</div>
 	<hr class="border-t-2 border-t-black" />
-	<div class="grow flex flex-col flex-nowrap items-stretch">
-		<Button grow on:click={playMambo}>Mambo Salentino</Button>
-		<progress class="w-full" id="file" value={progress} max="100"> 32% </progress>
-	</div>
+	<Button grow lock on:click={playMambo}>Mambo Salentino</Button>
 </div>
