@@ -6,7 +6,7 @@
 	export let current: Writable<string>;
 	export let grow = false;
 
-	let locked = false;
+	let locked: boolean;
 	$: locked = $current === name;
 
 	function setCurrent() {

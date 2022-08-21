@@ -1,1 +1,3 @@
-<div class="w-full bg-blue-500">TIMER</div>
+<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
+	<p>Work in progress</p>
+</div>

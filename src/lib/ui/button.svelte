@@ -11,18 +11,26 @@
 	export let release = false;
 	export let disableOnLock = false;
 
-	export let locked = false;
-
 	/**
-	 *
+	 * State variables
 	 */
 
-	// State variables
-
-	// let locked;
+	export let locked = false;
 	let activated = false;
 
-	// Functions controlling state variables
+	/**
+	 * Updating lock state
+	 */
+
+	$: if (!locked) {
+		doRelease();
+	} else {
+		doLock();
+	}
+
+	/**
+	 * State variable control
+	 */
 
 	function doLock() {
 		//
@@ -46,7 +54,9 @@
 		disabled = false;
 	}
 
-	// Dispatching clicks
+	/**
+	 * Click dispatch
+	 */
 
 	const dispatch = createEventDispatcher();
 
@@ -58,28 +68,16 @@
 		// If it's a lock button, instead
 		else {
 			if (!locked) {
-				doLock();
+				locked = true;
 				dispatch('click', {});
 			} else {
 				if (release) {
-					doRelease();
+					locked = false;
 				}
 				dispatch('release', {});
 			}
 		}
 	}
-
-	$: if (!locked) {
-		doRelease();
-	}
-
-	// // Detecting state changes
-
-	// $: if ($isUp) {
-	// 	doRelease();
-	// } else {
-	// 	doLock();
-	// }
 </script>
 
 <!--  -->

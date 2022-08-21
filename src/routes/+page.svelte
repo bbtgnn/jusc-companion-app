@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
+	import type { SvelteComponent } from 'svelte';
 
 	import Sounds from './partials/sounds.svelte';
 	import Timer from './partials/timer.svelte';
@@ -7,14 +8,18 @@
 	import Tab from '$lib/ui/tab.svelte';
 	import TabButton from '$lib/ui/tabButton.svelte';
 
-	const Views = ['timer', 'sounds'] as const;
-	type View = typeof Views[number];
-
-	let currentView = writable<View>('sounds');
-
-	function log() {
-		console.log('Working');
+	interface View {
+		id: string;
+		label: string;
+		component: typeof SvelteComponent;
 	}
+
+	const views = [
+		{ id: 'sounds', label: 'Sounds', component: Sounds },
+		{ id: 'timer', label: 'Timer', component: Timer }
+	] as const;
+
+	let currentView = writable<string>(views[0].id);
 </script>
 
 <!-- Navbar -->
@@ -25,15 +30,15 @@
     flex flex-row flex-nowrap items-stretch
 "
 >
-	<TabButton current={currentView} name={Views[0]} grow>Timer</TabButton>
-	<TabButton current={currentView} name={Views[1]} grow>Sounds</TabButton>
+	{#each views as view}
+		<TabButton name={view.id} current={currentView} grow>{view.label}</TabButton>
+	{/each}
 </div>
 
 <!-- Content -->
 
-<Tab name="sounds" current={currentView}>
-	<Sounds />
-</Tab>
-<Tab name="timer" current={currentView}>
-	<Timer />
-</Tab>
+{#each views as view}
+	<Tab name={view.id} current={currentView}>
+		<svelte:component this={view.component} />
+	</Tab>
+{/each}
