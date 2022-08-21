@@ -1,114 +1,60 @@
 <script lang="ts">
 	import Button from '$lib/ui/button.svelte';
-	import { Howl } from 'howler';
 	import { assets } from '$app/paths';
 
-	import LoopButton from '$lib/ui/loopButton.svelte';
+	import LoopButton, { howls } from '$lib/ui/loopButton.svelte';
 
-	export let count = 0;
+	// Loading tracks
 
-	//
+	let papiSrc = [`${assets}/tracks/papi.mp3`];
+	let mamacitaSrc = [`${assets}/tracks/mamacita.mp3`];
+	let mamboSrc = [`${assets}/tracks/mambo.mp3`];
 
-	let mamacita: Howl | null = null;
-
-	function playMamacita() {
-		if (mamacita) {
-			mamacita.play();
-			stopPapi();
-		}
-	}
-
-	let mambo: Howl | null = null;
-
-	function playMambo() {
-		if (mambo) {
-			mambo.play();
-		}
-	}
-
-	let papiA: Howl | null = null;
-	let papiB: Howl | null = null;
-
-	let isPapiPlaying = false;
-
-	function playPapi() {
-		if (papiA && papiB && mamacita) {
-			mamacita.stop();
-			if (!papiA.playing()) {
-				papiA.play();
-				papiB.stop();
-			} else if (!papiB.playing()) {
-				papiA.stop();
-				papiB.play();
-			}
-			isPapiPlaying = true;
-		}
-	}
-
-	function stopPapi() {
-		if (papiA && papiB) {
-			papiB.stop();
-			papiA.stop();
-			isPapiPlaying = false;
-		}
-	}
-
-	//
-
-	function createHowl(src: string | Array<string>) {
-		return new Howl({
-			src,
-			preload: true,
-			html5: true
-		});
-	}
-
-	function createAudio() {
-		mambo = createHowl([`${assets}/tracks/mambo.webm`]);
-		papiA = createHowl([`${assets}/tracks/papi.webm`]);
-		papiB = createHowl([`${assets}/tracks/papi.webm`]);
-		mamacita = createHowl([`${assets}/tracks/mamacita.webm`]);
-	}
-
-	//
+	// Loading view
 
 	let visible = false;
 
 	function init() {
-		createAudio();
 		visible = true;
 	}
 
-	// function seekMambo() {
-	// 	console.log(mambo.seek() / mambo.duration());
-	// }
+	// Is Papi playing ?
 
-	// let progress = 0;
+	let isPapiPlaying = false;
 
-	// function step() {
-	// 	const seek = mambo.seek() || 0;
-	// 	progress = (seek / mambo.duration()) * 100 || 0;
-	// 	if (mambo.playing()) {
-	// 		requestAnimationFrame(step);
-	// 	}
-	// }
+	function stopPapi() {
+		$howls['papi'].base.stop();
+		$howls['papi'].copy.stop();
+	}
+
+	$: if ('papi' in $howls) {
+		isPapiPlaying = $howls['papi'].isPlaying;
+	}
 </script>
 
-{#if !visible}
+<!-- {#if !visible}
 	<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
 		<Button grow on:click={init}>Start</Button>
 	</div>
-{:else}
-	<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
-		<div class="h-2" />
-		<Button grow on:click={playPapi}>Papi</Button>
-		<Button grow disabled>{count}</Button>
-		<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
-			<Button grow disabled={!isPapiPlaying} on:click={playMamacita}>Mamacita</Button>
-			<Button grow disabled={!isPapiPlaying} on:click={stopPapi}>Stop</Button>
-		</div>
-		<div class="h-4" />
-		<Button grow lock on:click={playMambo}>Mambo Salentino</Button>
-		<div class="h-2" />
+{:else} -->
+<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
+	<div class="h-2" />
+
+	<!-- Papi & related -->
+	<LoopButton name="papi" grow src={papiSrc}>Papi</LoopButton>
+	<Button grow disabled>0</Button>
+	<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
+		<LoopButton name="mamacita" disabled={!isPapiPlaying} grow src={mamacitaSrc} on:click={stopPapi}
+			>Mamacita</LoopButton
+		>
+		<Button grow disabled={!isPapiPlaying} on:click={stopPapi}>Stop</Button>
 	</div>
-{/if}
+
+	<div class="h-4" />
+
+	<!-- Mambo salentino -->
+	<LoopButton name="mambo" grow lock disableOnLock src={mamboSrc}>Mambo Salentino</LoopButton>
+
+	<div class="h-2" />
+</div>
+<!-- {/if} -->
