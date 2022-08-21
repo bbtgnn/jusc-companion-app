@@ -30,7 +30,8 @@
 	let isPapiPlaying = false;
 
 	function playPapi() {
-		if (papiA && papiB) {
+		if (papiA && papiB && mamacita) {
+			mamacita.stop();
 			if (!papiA.playing()) {
 				papiA.play();
 				papiB.stop();
@@ -61,10 +62,10 @@
 	}
 
 	function createAudio() {
-		mambo = createHowl([`${assets}/tracks/mambo.mp3`]);
-		papiA = createHowl([`${assets}/tracks/papi.mp3`]);
-		papiB = createHowl([`${assets}/tracks/papi.mp3`]);
-		mamacita = createHowl([`${assets}/tracks/mamacita.mp3`]);
+		mambo = createHowl([`${assets}/tracks/mambo.webm`]);
+		papiA = createHowl([`${assets}/tracks/papi.webm`]);
+		papiB = createHowl([`${assets}/tracks/papi.webm`]);
+		mamacita = createHowl([`${assets}/tracks/mamacita.webm`]);
 	}
 
 	//
