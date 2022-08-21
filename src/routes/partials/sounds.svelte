@@ -10,14 +10,6 @@
 	let mamacitaSrc = [`${assets}/tracks/mamacita.mp3`];
 	let mamboSrc = [`${assets}/tracks/mambo.mp3`];
 
-	// Loading view
-
-	let visible = false;
-
-	function init() {
-		visible = true;
-	}
-
 	// Is Papi playing ?
 
 	let isPapiPlaying = false;
@@ -37,11 +29,8 @@
 	}
 </script>
 
-<!-- {#if !visible}
-	<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
-		<Button grow on:click={init}>Start</Button>
-	</div>
-{:else} -->
+<!--  -->
+
 <div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
 	<div class="h-2" />
 
@@ -62,4 +51,3 @@
 
 	<div class="h-2" />
 </div>
-<!-- {/if} -->
