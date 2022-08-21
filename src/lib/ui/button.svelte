@@ -4,21 +4,41 @@
 	export let grow = false;
 	export let disabled = false;
 	export let lock = false;
+	export let disableOnLock = false;
 
-	let down = false;
+	let locked = false;
 
 	const dispatch = createEventDispatcher();
 
 	function click() {
-		if (lock) {
-			disabled = true;
-			down = true;
+		// If it's not a lock button, just send a click
+		if (!lock) {
+			dispatch('click', {});
 		}
-		dispatch('click', {});
+		// If it's a lock button, instead
+		else {
+			if (!locked) {
+				locked = true;
+				if (disableOnLock) {
+					disabled = true;
+				}
+				dispatch('click', {});
+			} else {
+				locked = false;
+				dispatch('release', {});
+			}
+		}
 	}
 </script>
 
-<button on:click={click} {disabled} class="shrink-0" class:grow class:down class:basis-1={grow}>
+<button
+	on:click={click}
+	{disabled}
+	class:locked
+	class:grow
+	class:basis-1={grow}
+	class="relative shrink-0"
+>
 	<slot />
 </button>
 
@@ -29,20 +49,18 @@
 		border: solid 2px #000;
 		border-radius: 8px;
 		cursor: pointer;
-		/* transition: transform 100ms, box-shadow 100ms, border 100ms; */
-		transition: all 100ms;
+		transition: transform 100ms, box-shadow 100ms, border 100ms;
 	}
 
 	button:active,
-	button.down {
+	button.locked {
 		transform: translate(0, 0);
 		box-shadow: 0 0 0 0 #000;
 	}
 
-	button:disabled:not(.down) {
-		border: solid 2px gray;
+	button:disabled {
 		transform: translate(0, 0);
-		box-shadow: 0 0 0 0 gray;
-		color: gray;
+		box-shadow: 0 0 0 0 red;
+		border: solid 2px red;
 	}
 </style>
