@@ -15,22 +15,28 @@
 		}
 	}
 
-	let papi: Howl | null = null;
+	let papiA: Howl | null = null;
+	let papiB: Howl | null = null;
+
 	let isPapiPlaying = false;
 
 	function playPapi() {
-		if (papi) {
-			if (papi.playing()) {
-				stopPapi();
+		if (papiA && papiB) {
+			if (!papiA.playing()) {
+				papiA.play();
+				papiB.stop();
+			} else if (!papiB.playing()) {
+				papiA.stop();
+				papiB.play();
 			}
-			papi.play();
 			isPapiPlaying = true;
 		}
 	}
 
 	function stopPapi() {
-		if (papi) {
-			papi.stop();
+		if (papiA && papiB) {
+			papiB.stop();
+			papiA.stop();
 			isPapiPlaying = false;
 		}
 	}
@@ -47,7 +53,8 @@
 
 	function createAudio() {
 		mambo = createHowl([`${assets}/tracks/mambo.mp3`]);
-		papi = createHowl([`${assets}/tracks/papi.mp3`]);
+		papiA = createHowl([`${assets}/tracks/papi.mp3`]);
+		papiB = createHowl([`${assets}/tracks/papi.mp3`]);
 	}
 
 	//
