@@ -7,6 +7,15 @@
 
 	//
 
+	let mamacita: Howl | null = null;
+
+	function playMamacita() {
+		if (mamacita) {
+			mamacita.play();
+			stopPapi();
+		}
+	}
+
 	let mambo: Howl | null = null;
 
 	function playMambo() {
@@ -55,6 +64,7 @@
 		mambo = createHowl([`${assets}/tracks/mambo.mp3`]);
 		papiA = createHowl([`${assets}/tracks/papi.mp3`]);
 		papiB = createHowl([`${assets}/tracks/papi.mp3`]);
+		mamacita = createHowl([`${assets}/tracks/mamacita.mp3`]);
 	}
 
 	//
@@ -87,14 +97,15 @@
 	</div>
 {:else}
 	<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
+		<div class="h-2" />
 		<Button grow on:click={playPapi}>Papi</Button>
-
 		<Button grow disabled>{count}</Button>
 		<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
-			<Button grow disabled>Mamacita</Button>
+			<Button grow disabled={!isPapiPlaying} on:click={playMamacita}>Mamacita</Button>
 			<Button grow disabled={!isPapiPlaying} on:click={stopPapi}>Stop</Button>
 		</div>
-		<hr class="border-t-2 border-t-black" />
+		<div class="h-4" />
 		<Button grow lock on:click={playMambo}>Mambo Salentino</Button>
+		<div class="h-2" />
 	</div>
 {/if}
