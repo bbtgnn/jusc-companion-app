@@ -30,6 +30,11 @@
 	$: if ('papi' in $howls) {
 		isPapiPlaying = $howls['papi'].isPlaying;
 	}
+
+	function stopMamacita() {
+		$howls['mamacita'].base.stop();
+		$howls['mamacita'].copy.stop();
+	}
 </script>
 
 <!-- {#if !visible}
@@ -41,7 +46,7 @@
 	<div class="h-2" />
 
 	<!-- Papi & related -->
-	<LoopButton name="papi" grow src={papiSrc}>Papi</LoopButton>
+	<LoopButton name="papi" grow src={papiSrc} on:click={stopMamacita}>Papi</LoopButton>
 	<Button grow disabled>0</Button>
 	<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
 		<LoopButton name="mamacita" disabled={!isPapiPlaying} grow src={mamacitaSrc} on:click={stopPapi}
