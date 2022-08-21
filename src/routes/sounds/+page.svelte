@@ -1,7 +1,9 @@
 <script lang="ts">
 	import Button from '$lib/ui/button.svelte';
-	import { Howl, Howler } from 'howler';
+	import { Howl } from 'howler';
 	import { assets } from '$app/paths';
+
+	import LoopButton from '$lib/ui/loopButton.svelte';
 
 	export let count = 0;
 
