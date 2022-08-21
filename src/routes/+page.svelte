@@ -1,17 +1,19 @@
 <script lang="ts">
+	import { writable } from 'svelte/store';
+
 	import Sounds from './partials/sounds.svelte';
 	import Timer from './partials/timer.svelte';
 
-	import Button from '$lib/ui/button.svelte';
+	import Tab from '$lib/ui/tab.svelte';
+	import TabButton from '$lib/ui/tabButton.svelte';
 
-	let view: 'timer' | 'sounds' = 'sounds';
+	const Views = ['timer', 'sounds'] as const;
+	type View = typeof Views[number];
 
-	function viewTimer() {
-		view = 'timer';
-	}
+	let currentView = writable<View>('sounds');
 
-	function viewSounds() {
-		view = 'sounds';
+	function log() {
+		console.log('Working');
 	}
 </script>
 
@@ -23,15 +25,15 @@
     flex flex-row flex-nowrap items-stretch
 "
 >
-	<Button grow on:click={viewTimer}>Timer</Button>
-	<Button grow on:click={viewSounds}>Sounds</Button>
+	<TabButton current={currentView} name={Views[0]} grow>Timer</TabButton>
+	<TabButton current={currentView} name={Views[1]} grow>Sounds</TabButton>
 </div>
 
 <!-- Content -->
 
-<div class="grow flex flex-col flex-nowrap" class:hidden={view != 'sounds'}>
+<Tab name="sounds" current={currentView}>
 	<Sounds />
-</div>
-<div class="grow flex flex-col flex-nowrap" class:hidden={view != 'timer'}>
+</Tab>
+<Tab name="timer" current={currentView}>
 	<Timer />
-</div>
+</Tab>

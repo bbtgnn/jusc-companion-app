@@ -1,12 +1,52 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
+	// Rinominare per bene le proprietà
+
 	export let grow = false;
 	export let disabled = false;
+
+	export let active = false;
 	export let lock = false;
+	export let release = false;
 	export let disableOnLock = false;
 
-	let locked = false;
+	export let locked = false;
+
+	/**
+	 *
+	 */
+
+	// State variables
+
+	// let locked;
+	let activated = false;
+
+	// Functions controlling state variables
+
+	function doLock() {
+		//
+		locked = true;
+		//
+		if (active) {
+			activated = true;
+		}
+		//
+		if (disableOnLock) {
+			disabled = true;
+		}
+	}
+
+	function doRelease() {
+		//
+		locked = false;
+		//
+		activated = false;
+		//
+		disabled = false;
+	}
+
+	// Dispatching clicks
 
 	const dispatch = createEventDispatcher();
 
@@ -18,24 +58,38 @@
 		// If it's a lock button, instead
 		else {
 			if (!locked) {
-				locked = true;
-				if (disableOnLock) {
-					disabled = true;
-				}
+				doLock();
 				dispatch('click', {});
 			} else {
-				locked = false;
+				if (release) {
+					doRelease();
+				}
 				dispatch('release', {});
 			}
 		}
 	}
+
+	$: if (!locked) {
+		doRelease();
+	}
+
+	// // Detecting state changes
+
+	// $: if ($isUp) {
+	// 	doRelease();
+	// } else {
+	// 	doLock();
+	// }
 </script>
+
+<!--  -->
 
 <button
 	on:click={click}
 	{disabled}
 	class:locked
 	class:grow
+	class:activated
 	class:basis-1={grow}
 	class="relative shrink-0"
 >
@@ -49,13 +103,17 @@
 		border: solid 2px #000;
 		border-radius: 8px;
 		cursor: pointer;
-		transition: transform 100ms, box-shadow 100ms, border 100ms;
+		transition: all 100ms;
 	}
 
 	button:active,
 	button.locked {
 		transform: translate(0, 0);
 		box-shadow: 0 0 0 0 #000;
+	}
+
+	button.activated {
+		background-color: lightgreen;
 	}
 
 	button:disabled {
