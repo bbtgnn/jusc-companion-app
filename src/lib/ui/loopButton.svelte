@@ -2,6 +2,8 @@
 	import { writable } from 'svelte/store';
 	import { Howl } from 'howler';
 
+	export type HowlSrc = string | Array<string>;
+
 	export interface HowlRecord {
 		base: Howl;
 		copy: Howl;
@@ -16,10 +18,6 @@
 		howl.base.stop();
 		howl.copy.stop();
 	}
-
-	export function isHowlPlaying(howl: HowlRecord) {
-		return howl.base.playing() || howl.copy.playing();
-	}
 </script>
 
 <script lang="ts">
@@ -28,7 +26,7 @@
 	import Button from './button.svelte';
 	import Spinner from './spinner.svelte';
 
-	type HowlSrc = string | Array<string>;
+	//
 
 	export let name: string;
 

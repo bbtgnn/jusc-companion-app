@@ -3,6 +3,7 @@
 	import { assets } from '$app/paths';
 
 	import LoopButton, { howls, stopHowl } from '$lib/ui/loopButton.svelte';
+	import SequenceButton from '$lib/ui/sequenceButton.svelte';
 
 	//
 
@@ -21,6 +22,21 @@
 		}
 	};
 
+	const numbersPath = `${assets}/tracks/numbers`;
+	const numbersSrc = [
+		`${numbersPath}/01-uno.mp3`,
+		`${numbersPath}/02-dos.mp3`,
+		`${numbersPath}/03-tres.mp3`,
+		`${numbersPath}/04-cuatro.mp3`,
+		`${numbersPath}/05-cinco.mp3`,
+		`${numbersPath}/06-seis.mp3`,
+		`${numbersPath}/07-siete.mp3`,
+		`${numbersPath}/08-ocho.mp3`,
+		`${numbersPath}/09-nueve.mp3`,
+		`${numbersPath}/10-diez.mp3`,
+		`${numbersPath}/11-once.mp3`
+	];
+
 	//
 
 	let isPapiPlaying: boolean;
@@ -33,6 +49,8 @@
 	function stopMamacita() {
 		stopHowl($howls[tracks.mamacita.id]);
 	}
+
+	//
 </script>
 
 <!--  -->
@@ -44,7 +62,16 @@
 	<LoopButton name="papi" src={tracks.papi.src} on:click={stopMamacita} grow
 		>Papi</LoopButton
 	>
-	<!-- <LoopButton name="count" src={papiSrc} disabled grow>0</LoopButton> -->
+
+	<SequenceButton
+		name="ok"
+		disabled={!isPapiPlaying}
+		srcSet={numbersSrc}
+		grow
+		let:index
+	>
+		{index}</SequenceButton
+	>
 
 	<div class="grow shrink-0 flex flex-row flex-nowrap space-x-6">
 		<LoopButton

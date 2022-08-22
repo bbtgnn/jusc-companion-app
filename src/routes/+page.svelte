@@ -26,12 +26,13 @@
 
 <div
 	class="
-    border-b-2 border-b-black px-6 py-4 pt-6 space-x-8 h-24
+    bg-gray-300 pl-6 pr-7 pb-5 pt-6 space-x-8 h-24
     flex flex-row flex-nowrap items-stretch
 "
 >
 	{#each views as view}
-		<TabButton name={view.id} current={currentView} grow>{view.label}</TabButton>
+		<TabButton name={view.id} current={currentView} grow>{view.label}</TabButton
+		>
 	{/each}
 </div>
 
