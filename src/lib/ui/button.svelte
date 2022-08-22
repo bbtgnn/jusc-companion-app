@@ -1,80 +1,48 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	// Rinominare per bene le proprietà
+	/**
+	 * Exports
+	 */
 
 	export let grow = false;
 	export let disabled = false;
 
-	export let active = false;
 	export let lock = false;
 	export let release = false;
 	export let disableOnLock = false;
 
-	/**
-	 * State variables
-	 */
-
+	// State variable
 	export let locked = false;
-	let activated = false;
 
 	/**
 	 * Updating lock state
 	 */
 
-	$: if (!locked) {
-		doRelease();
-	} else {
-		doLock();
-	}
+	let isDisabled: boolean;
+	$: isDisabled = disabled || (disableOnLock && locked);
 
-	/**
-	 * State variable control
-	 */
-
-	function doLock() {
-		//
-		locked = true;
-		//
-		if (active) {
-			activated = true;
-		}
-		//
-		if (disableOnLock) {
-			disabled = true;
-		}
-	}
-
-	function doRelease() {
-		//
-		locked = false;
-		//
-		activated = false;
-		//
-		disabled = false;
-	}
+	let isDown: boolean;
+	$: isDown = !disabled && lock && locked;
 
 	/**
 	 * Click dispatch
 	 */
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{ click: null; release: null }>();
 
 	function click() {
-		// If it's not a lock button, just send a click
 		if (!lock) {
-			dispatch('click', {});
-		}
-		// If it's a lock button, instead
-		else {
+			dispatch('click');
+		} else {
 			if (!locked) {
 				locked = true;
-				dispatch('click', {});
+				dispatch('click');
 			} else {
 				if (release) {
 					locked = false;
+					dispatch('release');
 				}
-				dispatch('release', {});
 			}
 		}
 	}
@@ -84,10 +52,9 @@
 
 <button
 	on:click={click}
-	{disabled}
-	class:locked
+	disabled={isDisabled}
+	class:locked={isDown}
 	class:grow
-	class:activated
 	class:basis-1={grow}
 	class="relative shrink-0"
 >
@@ -96,27 +63,30 @@
 
 <style lang="postcss">
 	button {
+		transition: all 100ms;
+		cursor: pointer;
+		border-radius: 8px;
+
+		background-color: white;
+		border: solid 2px #000;
 		box-shadow: -8px 8px 0 0 #000;
 		transform: translate(8px, -8px);
-		border: solid 2px #000;
-		border-radius: 8px;
-		cursor: pointer;
-		transition: all 100ms;
+	}
+
+	button:disabled {
+		pointer-events: none;
+
+		color: gray;
+		background-color: transparent;
+		border: solid 2px gray;
+		box-shadow: 0 0 0 0 gray;
+		transform: translate(0, 0);
 	}
 
 	button:active,
 	button.locked {
-		transform: translate(0, 0);
-		box-shadow: 0 0 0 0 #000;
-	}
-
-	button.activated {
 		background-color: lightgreen;
-	}
-
-	button:disabled {
-		transform: translate(0, 0);
-		box-shadow: 0 0 0 0 red;
-		border: solid 2px red;
+		box-shadow: -4px 4px 0 0 #000;
+		transform: translate(4px, -4px);
 	}
 </style>

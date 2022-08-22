@@ -14,4 +14,4 @@
 	}
 </script>
 
-<Button on:click={setCurrent} lock active {grow} bind:locked><slot /></Button>
+<Button on:click={setCurrent} lock {grow} bind:locked><slot /></Button>
