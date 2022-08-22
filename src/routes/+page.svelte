@@ -4,6 +4,7 @@
 
 	import Sounds from './partials/sounds.svelte';
 	import Timer from './partials/timer.svelte';
+	import Special from './partials/special.svelte';
 
 	import Tab from '$lib/ui/tab.svelte';
 	import TabButton from '$lib/ui/tabButton.svelte';
@@ -14,10 +15,11 @@
 		component: typeof SvelteComponent;
 	}
 
-	const views = [
+	const views: Array<View> = [
 		{ id: 'sounds', label: 'Sounds', component: Sounds },
-		{ id: 'timer', label: 'Timer', component: Timer }
-	] as const;
+		{ id: 'timer', label: 'Timer', component: Timer },
+		{ id: 'special', label: '⛔', component: Special }
+	];
 
 	let currentView = writable<string>(views[0].id);
 </script>
@@ -31,8 +33,17 @@
 "
 >
 	{#each views as view}
-		<TabButton name={view.id} current={currentView} grow>{view.label}</TabButton
-		>
+		{#if view.id != 'special'}
+			<TabButton name={view.id} current={currentView} grow>
+				{view.label}
+			</TabButton>
+		{:else}
+			<TabButton name={view.id} current={currentView}>
+				<div class="px-3">
+					{view.label}
+				</div>
+			</TabButton>
+		{/if}
 	{/each}
 </div>
 
