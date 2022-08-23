@@ -10,6 +10,6 @@
 
 <!--  -->
 
-<div class="grow flex flex-col flex-nowrap" class:hidden>
+<div class="grow flex flex-col flex-nowrap overflow-y-auto" class:hidden>
 	<slot />
 </div>

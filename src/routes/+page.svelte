@@ -29,7 +29,7 @@
 <div
 	class="
     bg-gray-300 pl-6 pr-7 pb-5 pt-6 space-x-8 h-24
-    flex flex-row flex-nowrap items-stretch
+    flex flex-row flex-nowrap items-stretch shrink-0
 "
 >
 	{#each views as view}

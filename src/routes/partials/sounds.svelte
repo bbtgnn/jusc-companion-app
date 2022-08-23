@@ -55,9 +55,7 @@
 
 <!--  -->
 
-<div class="p-6 flex flex-col flex-nowrap items-stretch grow space-y-6">
-	<div class="h-1" />
-
+<div class="px-6 py-9 flex flex-col flex-nowrap items-stretch grow space-y-6">
 	<!-- Papi & related -->
 	<LoopButton name="papi" src={tracks.papi.src} on:click={stopMamacita} grow
 		>Papi</LoopButton
@@ -90,6 +88,4 @@
 	<LoopButton name="mambo" grow lock disableOnLock src={tracks.mambo.src}
 		>Mambo Salentino</LoopButton
 	>
-
-	<div class="h-1" />
 </div>
