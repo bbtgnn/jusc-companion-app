@@ -1,6 +1,6 @@
 {
   "node_modules/@sveltejs/kit/src/runtime/client/start.js": {
-    "file": "_app/immutable/start-7eb67a06.js",
+    "file": "_app/immutable/start-1d163f4c.js",
     "src": "node_modules/@sveltejs/kit/src/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -34,7 +34,7 @@
     ]
   },
   "src/routes/+page.svelte": {
-    "file": "_app/immutable/components/pages/_page.svelte-b9f11a54.js",
+    "file": "_app/immutable/components/pages/_page.svelte-d38844fd.js",
     "src": "src/routes/+page.svelte",
     "isEntry": true,
     "imports": [
@@ -92,7 +92,7 @@
     ]
   },
   ".svelte-kit/generated/nodes/2.js": {
-    "file": "_app/immutable/chunks/2-2b67c74e.js",
+    "file": "_app/immutable/chunks/2-6232600c.js",
     "src": ".svelte-kit/generated/nodes/2.js",
     "isDynamicEntry": true,
     "imports": [
@@ -112,6 +112,10 @@
       "_button-b1a6b4a5.js"
     ]
   },
+  "src/routes/+layout.css": {
+    "file": "_app/immutable/assets/+layout-c7a1ca50.css",
+    "src": "src/routes/+layout.css"
+  },
   "src/routes/+page.css": {
     "file": "_app/immutable/assets/+page-883f9fa3.css",
     "src": "src/routes/+page.css"
@@ -119,9 +123,5 @@
   "button.css": {
     "file": "_app/immutable/assets/button-cdc0a67b.css",
     "src": "button.css"
-  },
-  "src/routes/+layout.css": {
-    "file": "_app/immutable/assets/+layout-c7a1ca50.css",
-    "src": "src/routes/+layout.css"
   }
 }

@@ -112,6 +112,14 @@
 
 	let isPlaying: boolean;
 	$: isPlaying = $howls[name]?.isPlaying;
+
+	//
+
+	let locked = false;
+
+	$: if (!isPlaying && disableOnLock) {
+		locked = false;
+	}
 </script>
 
 <Button
@@ -120,6 +128,7 @@
 	{lock}
 	{disableOnLock}
 	bind:disabled
+	bind:locked
 	on:release={stop}
 >
 	<slot />
