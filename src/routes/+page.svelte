@@ -16,8 +16,8 @@
 	}
 
 	const views: Array<View> = [
-		{ id: 'sounds', label: 'Sounds', component: Sounds },
 		{ id: 'timer', label: 'Timer', component: Timer },
+		{ id: 'sounds', label: 'Sounds', component: Sounds },
 		{ id: 'special', label: '⛔', component: Special }
 	];
 
